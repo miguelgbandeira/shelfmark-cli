@@ -24,7 +24,7 @@ export interface DownloadResponse {
 export interface DownloadStatus {
   id: string;
   title: string;
-  status: 'queued' | 'downloading' | 'completed' | 'error';
+  status: string;
   progress: number;
   speed?: string;
   eta?: string;
@@ -54,6 +54,24 @@ export interface Release {
 
 export interface ReleasesResponse {
   releases: Release[];
+}
+
+export interface DownloadUrl {
+  format?: string;
+  url: string;
+  size?: string;
+}
+
+export interface BookInfo {
+  id: string;
+  title: string;
+  author: string;
+  download_urls: string[] | DownloadUrl[];
+  format?: string;
+  size?: string;
+  year?: string;
+  publisher?: string;
+  language?: string;
 }
 
 export interface HealthResponse {
@@ -106,8 +124,14 @@ export class ShelfmarkAPI {
     return this.request<SearchResult[]>('GET', '/api/search', params);
   }
 
-  async download(id: string): Promise<DownloadResponse> {
-    return this.request<DownloadResponse>('GET', '/api/download', { id });
+  async download(id: string, format?: string): Promise<DownloadResponse> {
+    const params: Record<string, string> = { id };
+    if (format) params.format = format;
+    return this.request<DownloadResponse>('GET', '/api/download', params);
+  }
+
+  async info(id: string): Promise<BookInfo> {
+    return this.request<BookInfo>('GET', '/api/info', { id });
   }
 
   async status(): Promise<StatusResponse> {

@@ -20,7 +20,8 @@ export function formatBadge(format: string): string {
   const f = format.toLowerCase();
   if (f === 'epub') return chalk.blue.bold(` ${format.toUpperCase()} `);
   if (f === 'mobi') return chalk.green.bold(` ${format.toUpperCase()} `);
-  if (f === 'm4b' || f === 'mp3') return chalk.magenta.bold(` ${format.toUpperCase()} `);
+  if (f === 'm4b') return chalk.magenta.bold(` ${format.toUpperCase()} `);
+  if (f === 'mp3') return chalk.cyan.bold(` ${format.toUpperCase()} `);
   if (f === 'pdf') return chalk.red.bold(` ${format.toUpperCase()} `);
   if (f === 'azw3') return chalk.yellow.bold(` ${format.toUpperCase()} `);
   return chalk.white.bold(` ${format.toUpperCase()} `);

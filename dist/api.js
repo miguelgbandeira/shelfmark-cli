@@ -41,8 +41,14 @@ export class ShelfmarkAPI {
             params.mode = mode;
         return this.request('GET', '/api/search', params);
     }
-    async download(id) {
-        return this.request('GET', '/api/download', { id });
+    async download(id, format) {
+        const params = { id };
+        if (format)
+            params.format = format;
+        return this.request('GET', '/api/download', params);
+    }
+    async info(id) {
+        return this.request('GET', '/api/info', { id });
     }
     async status() {
         return this.request('GET', '/api/status');

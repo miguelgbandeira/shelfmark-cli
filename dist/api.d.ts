@@ -20,7 +20,7 @@ export interface DownloadResponse {
 export interface DownloadStatus {
     id: string;
     title: string;
-    status: 'queued' | 'downloading' | 'completed' | 'error';
+    status: string;
     progress: number;
     speed?: string;
     eta?: string;
@@ -48,6 +48,22 @@ export interface Release {
 export interface ReleasesResponse {
     releases: Release[];
 }
+export interface DownloadUrl {
+    format?: string;
+    url: string;
+    size?: string;
+}
+export interface BookInfo {
+    id: string;
+    title: string;
+    author: string;
+    download_urls: string[] | DownloadUrl[];
+    format?: string;
+    size?: string;
+    year?: string;
+    publisher?: string;
+    language?: string;
+}
 export interface HealthResponse {
     status: string;
     version: string;
@@ -58,7 +74,8 @@ export declare class ShelfmarkAPI {
     constructor(config: Conf<AppConfig>);
     private request;
     search(query: string, mode?: string): Promise<SearchResult[]>;
-    download(id: string): Promise<DownloadResponse>;
+    download(id: string, format?: string): Promise<DownloadResponse>;
+    info(id: string): Promise<BookInfo>;
     status(): Promise<StatusResponse>;
     cancel(id: string): Promise<{
         success: boolean;

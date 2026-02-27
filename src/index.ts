@@ -21,14 +21,18 @@ program
 program
   .command('search <query>')
   .description('Search for books or audiobooks')
-  .option('-a, --audiobook', 'Search for audiobooks only')
-  .option('-f, --format <format>', 'Filter by format (epub, mobi, m4b, pdf)')
+  .option('-a, --audiobook', 'Search for audiobooks only (m4b, mp3)')
+  .option('-e, --ebook', 'Search for ebooks only (epub, mobi, pdf)')
+  .option('-f, --format <format>', 'Filter by format (epub, mobi, m4b, mp3, pdf)')
   .option('-l, --limit <number>', 'Limit number of results', parseInt)
   .action(searchCommand);
 
 program
   .command('download <id>')
   .description('Download a book by ID')
+  .option('-e, --ebook', 'Download ebook format (epub, mobi, pdf)')
+  .option('-a, --audiobook', 'Download audiobook format (m4b, mp3)')
+  .option('-f, --format <format>', 'Specific format (epub, mobi, pdf, m4b, mp3)')
   .option('-r, --release <releaseId>', 'Specify a specific release')
   .option('-w, --watch', 'Watch download progress')
   .action(downloadCommand);

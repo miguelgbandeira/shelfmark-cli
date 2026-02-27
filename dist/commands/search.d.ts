@@ -1,5 +1,6 @@
 interface SearchOptions {
     audiobook?: boolean;
+    ebook?: boolean;
     format?: string;
     limit?: number;
 }
