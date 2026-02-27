@@ -4,9 +4,8 @@
 
 A beautiful command-line interface for [Shelfmark](https://github.com/calibrain/shelfmark) — the self-hosted book and audiobook downloader.
 
-[![npm version](https://img.shields.io/npm/v/shelfmark-cli.svg?color=blue)](https://www.npmjs.com/package/shelfmark-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js Version](https://img.shields.io/node/v/shelfmark-cli.svg)](https://nodejs.org)
+[![Node.js Version](https://img.shields.io/node/v-lts.svg)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
 
 [Installation](#installation) • [Usage](#usage) • [Configuration](#configuration) • [Contributing](#contributing)
@@ -31,12 +30,6 @@ A beautiful command-line interface for [Shelfmark](https://github.com/calibrain/
 - [Node.js](https://nodejs.org/) v18 or higher
 - [Shelfmark server](https://github.com/calibrain/shelfmark) running locally or remotely
 
-### From npm (Recommended)
-
-```bash
-npm install -g shelfmark-cli
-```
-
 ### From Source
 
 ```bash
@@ -46,6 +39,8 @@ npm install
 npm run build
 npm link
 ```
+
+After installation, the `shelfmark` command will be available globally.
 
 ## Usage
 
