@@ -1,133 +1,203 @@
-# Shelfmark CLI
+# 📚 Shelfmark CLI
 
-A beautiful command-line interface for the [Shelfmark](https://github.com/calibrain/shelfmark) book/audiobook downloader API.
+<div align="center">
 
-![License](https://img.shields.io/npm/l/shelfmark-cli)
-![Node](https://img.shields.io/node/v/shelfmark-cli)
+A beautiful command-line interface for [Shelfmark](https://github.com/calibrain/shelfmark) — the self-hosted book and audiobook downloader.
+
+[![npm version](https://img.shields.io/npm/v/shelfmark-cli.svg?color=blue)](https://www.npmjs.com/package/shelfmark-cli)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/node/v/shelfmark-cli.svg)](https://nodejs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
+
+[Installation](#installation) • [Usage](#usage) • [Configuration](#configuration) • [Contributing](#contributing)
+
+</div>
+
+---
 
 ## Features
 
-- 🔍 Search for books and audiobooks
-- 📚 Multiple format support (EPUB, MOBI, M4B, PDF, AZW3)
-- 📊 Beautiful table output with colored format badges
-- ⏳ Real-time download progress tracking
-- ⚙️ Configurable API endpoint and preferences
-- 🎨 Polished CLI experience with spinners and progress bars
+- 🔍 **Search** books and audiobooks from multiple sources
+- 📥 **Download** EPUB, MOBI, PDF, M4B, MP3 formats
+- 🎨 **Beautiful output** with colored format badges and tables
+- ⏳ **Progress tracking** with real-time download status
+- ⚙️ **Configurable** API endpoint and preferences
+- 🚀 **Fast and lightweight** TypeScript implementation
 
 ## Installation
 
-### From npm
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) v18 or higher
+- [Shelfmark server](https://github.com/calibrain/shelfmark) running locally or remotely
+
+### From npm (Recommended)
 
 ```bash
 npm install -g shelfmark-cli
 ```
 
-### From source
+### From Source
 
 ```bash
-git clone https://github.com/calibrain/shelfmark-cli.git
+git clone https://github.com/miguelgbandeira/shelfmark-cli.git
 cd shelfmark-cli
 npm install
 npm run build
 npm link
 ```
 
-## Prerequisites
-
-This CLI requires a running [Shelfmark server](https://github.com/calibrain/shelfmark). By default, it connects to `http://localhost:8084`.
-
 ## Usage
 
-### Search for books
+```
+_____ _    _ _____  _____ _____ _____ _      ______ ______ 
+|  __ \| |  | |  __ \|  __ \_   _|_   _| |    |  ____|  ____|
+| |__) | |__| | |__) | |  | || |   | | | |    | |__  | |__   
+|  ___/|  __  |  ___/| |  | || |   | | | |    |  __| |  __|  
+| |    | |  | | |    | |__| || |_ _| |_| |____| |____| |____ 
+|_|    |_|  |_|_|    |_____/ |__|_____|______|______|______|
+                                                            
+A beautiful CLI for the Shelfmark book/audiobook downloader
+```
+
+### Search for Books
 
 ```bash
 # Basic search
 shelfmark search "atomic habits"
 
-# Search for audiobooks only
+# Search for audiobooks only (M4B, MP3)
 shelfmark search "atomic habits" --audiobook
 
-# Filter by format and limit results
-shelfmark search "dune" --format epub --limit 20
+# Search for ebooks only (EPUB, MOBI, PDF)
+shelfmark search "atomic habits" --ebook
+
+# Filter by specific format
+shelfmark search "dune" --format m4b
+
+# Limit results
+shelfmark search "programming" --limit 20
 ```
 
-### Download books
+**Example output:**
+
+```
+Search results for "atomic habits"
+
+┌────┬─────────────────────────────────┬──────────────┬─────────┬────────┬───────┐
+│ #  │ Title                           │ Author       │ Format  │ Size   │ Year  │
+├────┼─────────────────────────────────┼──────────────┼─────────┼────────┼───────┤
+│ 1  │ Atomic Habits: Tiny Changes...  │ Clear, James │  EPUB   │ 4.6MB  │ 2018  │
+├────┼─────────────────────────────────┼──────────────┼─────────┼────────┼───────┤
+│ 2  │ Atomic Habits: An Easy and...   │ Clear, James │  EPUB   │ 3.7MB  │ 2018  │
+└────┴─────────────────────────────────┴──────────────┴─────────┴────────┴───────┘
+
+Showing 2 of 50 results
+```
+
+### Download Books
 
 ```bash
 # Queue a download by ID
 shelfmark download <id>
 
-# Download and watch progress
+# Download and watch progress in real-time
 shelfmark download <id> --watch
 
-# Download a specific release
-shelfmark download <id> --release <releaseId>
+# Download with format preference
+shelfmark download <id> --audiobook
+shelfmark download <id> --ebook
+shelfmark download <id> --format m4b
 ```
 
-### Check download status
+> **Note:** For audiobooks, the web UI is recommended to select specific releases from AudiobookBay.
+
+### Check Download Status
 
 ```bash
-# View all downloads (active, queued, completed, errors)
 shelfmark status
 ```
 
-### Cancel downloads
+```
+Active Downloads:
+
+████████████████████░░░░░░░░ 67% | 2.3 MB/s | Atomic Habits
+
+Completed:
+  ✓ Be Water, My Friend (MP3)
+  ✓ Rich Dad Poor Dad (M4B)
+```
+
+### View Available Releases
+
+```bash
+shelfmark releases <id>
+```
+
+### Cancel Downloads
 
 ```bash
 shelfmark cancel <id>
 ```
 
-### View available releases
-
-```bash
-# See all available releases for a book
-shelfmark releases <id>
-```
-
 ### Configuration
 
 ```bash
-# Set the API URL
+# Set Shelfmark server URL
 shelfmark config set url http://localhost:8084
 
 # Set default format preference
 shelfmark config set format epub
 
-# Set default result limit
+# Set default search result limit
 shelfmark config set limit 20
 
-# Get a config value
-shelfmark config get url
-
-# List all configuration
+# View current configuration
 shelfmark config list
+
+# Get a specific config value
+shelfmark config get url
 
 # Reset to defaults
 shelfmark config reset
 ```
 
-## Configuration
+## Configuration File
 
-Configuration is stored in `~/.shelfmark-cli/config.json`.
+Configuration is stored in:
 
-| Option   | Default               | Description                    |
-|----------|-----------------------|--------------------------------|
-| `url`    | `http://localhost:8084` | Shelfmark server URL          |
-| `format` | `epub`                | Default format preference      |
-| `limit`  | `10`                  | Default search result limit    |
+- **Linux/macOS:** `~/.config/shelfmark-cli-nodejs/config.json`
+- **Windows:** `%APPDATA%\shelfmark-cli-nodejs\config.json`
 
-## API Reference
+| Option  | Default              | Description               |
+|---------|----------------------|---------------------------|
+| `url`   | `http://localhost:8084` | Shelfmark server URL   |
+| `format`| `epub`               | Default format preference |
+| `limit` | `10`                 | Default result limit      |
+
+## Supported Formats
+
+| Format | Type      | Badge Color |
+|--------|-----------|-------------|
+| EPUB   | Ebook     | Blue        |
+| MOBI   | Ebook     | Green       |
+| PDF    | Ebook     | Red         |
+| AZW3   | Ebook     | Yellow      |
+| M4B    | Audiobook | Magenta     |
+| MP3    | Audiobook | Cyan        |
+
+## API Endpoints
 
 The CLI interacts with the following Shelfmark API endpoints:
 
-| Endpoint                        | Method | Description              |
-|---------------------------------|--------|--------------------------|
-| `/api/search?query=X&mode=X`    | GET    | Search for books         |
-| `/api/download?id=X`            | GET    | Queue a download         |
-| `/api/status`                   | GET    | Get download status      |
-| `/api/download/<id>/cancel`     | DELETE | Cancel a download        |
-| `/api/releases?id=X`            | GET    | Get available releases   |
-| `/api/health`                   | GET    | Health check             |
+| Endpoint                    | Method | Description           |
+|-----------------------------|--------|-----------------------|
+| `/api/search`               | GET    | Search for books      |
+| `/api/download`             | GET    | Queue a download      |
+| `/api/status`               | GET    | Get download status   |
+| `/api/download/<id>/cancel` | DELETE | Cancel a download     |
+| `/api/releases`             | GET    | Get available releases|
+| `/api/health`               | GET    | Health check          |
 
 ## Development
 
@@ -135,20 +205,48 @@ The CLI interacts with the following Shelfmark API endpoints:
 # Install dependencies
 npm install
 
-# Run in development mode
-npm run dev
-
-# Build for production
+# Build TypeScript
 npm run build
 
-# Run built version
-npm start
+# Run locally
+node dist/index.js search "test"
+
+# Watch mode for development
+npm run dev
 ```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## Roadmap
+
+- [ ] Interactive search with fuzzy matching
+- [ ] Batch downloads from wishlist
+- [ ] Auto-select best release by quality preferences
+- [ ] Notification support when downloads complete
+- [ ] Direct format selection via API (pending Shelfmark support)
+
+## Related Projects
+
+- [Shelfmark](https://github.com/calibrain/shelfmark) - The backend API server
+- [Audiobookshelf](https://github.com/advplyr/audiobookshelf) - Audiobook server
+- [Booklore](https://github.com/booklore-app/booklore) - Ebook manager
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Related
+---
 
-- [Shelfmark](https://github.com/calibrain/shelfmark) - The backend API server
+<div align="center">
+
+Made with ❤️ by [Miguel Bandeira](https://github.com/miguelgbandeira)
+
+</div>
