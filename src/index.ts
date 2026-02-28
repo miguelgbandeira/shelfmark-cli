@@ -8,6 +8,7 @@ import { statusCommand } from './commands/status.js';
 import { cancelCommand } from './commands/cancel.js';
 import { configCommand } from './commands/config.js';
 import { releasesCommand } from './commands/releases.js';
+import { setupCommand, showShelfmarkConfig } from './commands/setup.js';
 import { BANNER } from './utils/output.js';
 
 const program = new Command();
@@ -17,6 +18,22 @@ program
   .description('A beautiful CLI for the Shelfmark book/audiobook downloader')
   .version('1.0.0')
   .addHelpText('beforeAll', BANNER);
+
+program
+  .command('setup')
+  .description('Configure Shelfmark server settings (qBittorrent, download paths)')
+  .option('--qbittorrent-host <url>', 'qBittorrent Web UI URL (e.g. http://localhost:8090)')
+  .option('--qbittorrent-user <user>', 'qBittorrent username')
+  .option('--qbittorrent-password <password>', 'qBittorrent password')
+  .option('--download-dir <path>', 'Download directory path')
+  .option('--show', 'Show current Shelfmark configuration')
+  .action((options) => {
+    if (options.show) {
+      showShelfmarkConfig();
+    } else {
+      setupCommand(options);
+    }
+  });
 
 program
   .command('search <query>')
