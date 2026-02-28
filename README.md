@@ -30,19 +30,35 @@ A beautiful command-line interface for [Shelfmark](https://github.com/calibrain/
 - [Node.js](https://nodejs.org/) v18 or higher
 - [Shelfmark server](https://github.com/calibrain/shelfmark) running locally or remotely
 
-### From Source
+### Setting up Shelfmark Server
+
+The CLI requires a running Shelfmark server. Here's how to set it up:
 
 ```bash
-git clone https://github.com/miguelgbandeira/shelfmark-cli.git
-cd shelfmark-cli
-npm install
-npm run build
-npm link
+# Clone and run Shelfmark
+git clone https://github.com/calibrain/shelfmark.git
+cd shelfmark/compose
+docker compose up -d
 ```
 
-After installation, the `shelfmark` command will be available globally.
+2. Open http://localhost:8084 and configure via the web UI:
+   - Add download clients (qBittorrent, Transmission, etc.)
+   - Set download directory path
+   - Configure sources (AudiobookBay, etc.)
 
-## Usage
+3. **Important:** Ensure your download directory volume in Shelfmark matches your qBittorrent's download path exactly.
+
+### Configuration
+
+```bash
+# Point CLI to your Shelfmark server
+shelfmark config set url http://localhost:8084
+```
+
+Configuration is stored in:
+
+- **Linux/macOS:** `~/.config/shelfmark-cli-nodejs/config.json`
+- **Windows:** `%APPDATA%\shelfmark-cli-nodejs\config.json`
 
 ```
 _____ _    _ _____  _____ _____ _____ _      ______ ______ 
