@@ -53,12 +53,21 @@ docker compose up -d
 ```bash
 # Point CLI to your Shelfmark server
 shelfmark config set url http://localhost:8084
+
+# Configure qBittorrent (one-time setup)
+shelfmark setup --qbittorrent-host http://localhost:8090 \
+                --qbittorrent-user admin \
+                --qbittorrent-password yourpassword \
+                --download-dir /downloads
+
+# View current Shelfmark configuration
+shelfmark setup --show
 ```
 
 Configuration is stored in:
 
-- **Linux/macOS:** `~/.config/shelfmark-cli-nodejs/config.json`
-- **Windows:** `%APPDATA%\shelfmark-cli-nodejs\config.json`
+- **CLI config:** `~/.config/shelfmark-cli-nodejs/config.json`
+- **Shelfmark config:** `~/docker-services/shelfmark/config/settings.json`
 
 ```
 _____ _    _ _____  _____ _____ _____ _      ______ ______ 
@@ -238,6 +247,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Roadmap
 
+- [x] Setup command for qBittorrent configuration
 - [ ] Interactive search with fuzzy matching
 - [ ] Batch downloads from wishlist
 - [ ] Auto-select best release by quality preferences
