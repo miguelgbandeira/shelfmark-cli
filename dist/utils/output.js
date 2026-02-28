@@ -41,9 +41,9 @@ export function displaySearchResults(results, total) {
             chalk.cyan.bold('Format'),
             chalk.cyan.bold('Size'),
             chalk.cyan.bold('Year'),
-            chalk.gray('ID'),
+            chalk.cyan.bold('ID'),
         ],
-        colWidths: [4, 40, 25, 10, 12, 8, 15],
+        colWidths: [4, 35, 20, 10, 12, 6, 34],
         wordWrap: true,
         style: {
             head: [],
@@ -53,12 +53,12 @@ export function displaySearchResults(results, total) {
     results.forEach((result, index) => {
         table.push([
             chalk.gray(index + 1),
-            chalk.white(result.title.substring(0, 38)),
-            chalk.gray(result.author.substring(0, 23)),
+            chalk.white(result.title.substring(0, 33)),
+            chalk.gray(result.author.substring(0, 18)),
             formatBadge(result.format),
             chalk.white(formatBytes(result.size)),
             chalk.gray(result.year || '-'),
-            chalk.dim(result.id),
+            chalk.cyan(result.id),
         ]);
     });
     console.log();
